@@ -12,8 +12,6 @@ class UserController{
     //metodo para evento click
     onSubmit(){
 
-            
-
         // evento para validar o formulario
         this.formEl.addEventListener("submit",event =>{
     
@@ -21,10 +19,8 @@ class UserController{
     
             let values = this.getVelue();
 
-            //
-
             this.getPhoto((content)=>{
-
+                //
                 values.photo = content;
                 this.addLine(values);
             });
