@@ -21,7 +21,7 @@ class UserController{
     
             let values = this.getVelue();
 
-            
+            //
 
             this.getPhoto((content)=>{
 
