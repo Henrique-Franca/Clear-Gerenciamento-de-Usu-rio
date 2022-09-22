@@ -98,8 +98,16 @@ class UserController{
     getVelue(){
 
         let user = {};
+        let isValid = true;
 
         [...this.formEl.elements].forEach(function(field, index){
+
+            if(['name','email','passowrd'].indexOf(field.name)> -1 && !field.value ){
+
+                field.parentElement.classList.add('has-error');
+                isValid = false;
+
+            }
 
             if(field.name == "gender"){
                 if(field.checked){
@@ -119,6 +127,12 @@ class UserController{
         
         });
     
+        if(!isValid){
+
+            return false;
+
+        }
+
         // objeto referente a classe User
         return new User(user.name, user.gender, user.birth, user.country, user.email, user.password, user.photo, user.admin);
 
