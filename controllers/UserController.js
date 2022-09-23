@@ -54,6 +54,8 @@ class UserController{
 
                     user.loadFromJSON(result);
 
+                    user.save();
+
                     this.getTr(user, tr);
 
                     this.updateCount();
@@ -96,7 +98,7 @@ class UserController{
 
                     values.photo = content;
 
-                    this.inset(values);
+                    values.save();
 
                     this.addLine(values);
 
@@ -241,18 +243,6 @@ class UserController{
 
     }
 
-
-    inset(data){
-
-        let users = this.getUsersStorege();
-
-
-        users.push(data);
-
-        //sessionStorage.setItem("users", JSON.stringify(users));
-        localStorage.setItem("users", JSON.stringify(users));
-
-    }
 
     //funçao para definir valores nas tabelas
     addLine(dataUser){
