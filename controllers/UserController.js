@@ -8,6 +8,7 @@ class UserController{
 
         this.onSubmit();
         this.onEdit();
+        this.selectAll();
 
     }   
 
@@ -104,6 +105,9 @@ class UserController{
                 (content)=>{
 
                     values.photo = content;
+
+                    this.inset(values);
+
                     this.addLine(values);
 
                     this.formEl.reset();
@@ -217,10 +221,55 @@ class UserController{
 
     }
 
+    getUsersStorege(){
+        let users = [];
+
+        if(sessionStorage.getItem("users")){
+
+            users = JSON.parse(sessionStorage.getItem("users"));
+
+        }
+
+        return users;
+
+    }
+
+    selectAll(){
+        let users = this.getUsersStorege();
+
+        users.forEach(dataUser=>{
+
+           let  user =  new User();
+
+           user.loadFromJSON(dataUser);
+
+            this.addLine(user);
+
+
+        });
+
+
+    }
+
+
+    inset(data){
+
+        let users = this.getUsersStorege();
+
+
+        users.push(data);
+
+        sessionStorage.setItem("users", JSON.stringify(users));
+
+    }
+
     //funçao para definir valores nas tabelas
     addLine(dataUser){
 
         let tr = document.createElement('tr');
+
+        
+
 
         tr.dataset.user = JSON.stringify(dataUser);
 
@@ -251,12 +300,15 @@ class UserController{
     addEventsTr(tr){
 
         tr.querySelector(".btn-delete").addEventListener("click", e=>{
+            console.log(tr);
 
             if(confirm("Deseja realmente excluir?")){
 
                 tr.remove();
 
-                this.updateCount();
+                
+
+                this.updateCount()
 
             }
 
